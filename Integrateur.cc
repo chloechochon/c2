@@ -19,9 +19,10 @@ void Integrateur::integre(ObjetMobile& M){
 
 void IntegrateurEulerCromer::integre(ObjetMobile& M) {
 		 Vecteur nouv_Pd ( M.getPd() + (dt*M.evolution()));
-    	 M.setPd ( nouv_Pd);
-    	 M.setP (M.getP() + (dt*M.getPd()));
+    		 M.setPd ( nouv_Pd);
+    		 M.setP (M.getP() + (dt*M.getPd()));
 }
+
 void IntegrateurNewmark::integre(ObjetMobile& M) {
 		Vecteur s;
 		Vecteur r;
