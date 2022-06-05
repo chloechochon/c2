@@ -65,6 +65,7 @@ class Plan :public Obstacle {
     
 };
 
+ostream& operator<<(ostream& sortie, Plan& P);
 
 class Brique : public Obstacle {
 	public:
@@ -99,8 +100,10 @@ class Brique : public Obstacle {
     // de plus il herite d'une origine par Obstacle
     Vecteur longueur;
     Vecteur largeur;
-    double hauteur;
+    double hauteur;	//hauteur a pour direction le vecteur normal n obtenu par la methode n()
 };
+
+ostream& operator<<(ostream& sortie, Brique& B);
 
 Vecteur point_portion (ObjetMobile const& M, Vecteur dir1, Vecteur dir2, Vecteur point); 
 // permet d utiliser la fonction point_plus_proche de plan dans la methode de Brique,
