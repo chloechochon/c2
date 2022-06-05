@@ -34,8 +34,8 @@ void ObjetMobile::setP (Vecteur nouv_pos){ P=nouv_pos; }
 void ObjetMobile::setPd (Vecteur nouv_der){ Pd=nouv_der;}
 void ObjetMobile::setforce(Vecteur nouv_force){force=nouv_force;}
 
-bool ObjetMobile::getdanschamp(size_t i){ return danschamp.at(i);}
-void ObjetMobile::setdanschamp(size_t i, bool a){ danschamp[i] = a;}
+bool ObjetMobile::getdanschamp(size_t i){ return danschamp.at(i);}		//pour simplifier l acces aux donnees de la map<>
+void ObjetMobile::setdanschamp(size_t i, bool a){ danschamp[i] = a;}		
 
 
 void ObjetMobile::ajoute_a(Systeme& S){
@@ -50,8 +50,8 @@ void ObjetMobile::agit_sur(ObjetMobile& obj){
 		if (((position()-obj.position()).norme()) - (rayon+obj.getrayon()) < epsilon) { //verification qu'il y ait bien un choc 
             		Vecteur normal(!(position()-obj.position()));			//vecteur (unitaire) normal au point de choc
 			
-			double Fn1 (force|normal);
-			Vecteur a(obj.getforce());
+			double Fn1 (force|normal);		//Les calculs donnes dans le complement mathematique:
+			Vecteur a(obj.getforce());		
 			double Fn2(a|normal);
 
 			if (Fn1 < epsilon) {
@@ -61,44 +61,49 @@ void ObjetMobile::agit_sur(ObjetMobile& obj){
 			
 			if (Fn2 > epsilon) {
 				force+=(Fn2*normal); 
-                obj.setforce(obj.getforce()-(Fn2*normal));
+               			obj.setforce(obj.getforce()-(Fn2*normal));
 			}
+			
 			//valeur necessaire au calcul de la vitesse relative du point de contact
 			double lambda ( (1+alpha)*(obj.getmasse()/(masse+obj.getmasse())));
 			
 			//calcul vitesse relative du point de contact
 			double v_etoile((obj.vitesse()-vitesse())|normal);
 			Vecteur v_contact((vitesse()-obj.vitesse())+(v_etoile*normal));
-            Vecteur delta_v;
-            double condition(7*frottement_choc*(1+alpha)*v_etoile);
-            if (condition - (2*v_contact.norme()) > epsilon){
-                delta_v=( (lambda*v_etoile)*normal-((2*obj.getmasse()/(7*(masse+obj.getmasse())))*v_contact));
+            
+			Vecteur delta_v;
+           
+			double condition(7*frottement_choc*(1+alpha)*v_etoile);
+       
+			if (condition - (2*v_contact.norme()) > epsilon){
+         		       delta_v=( (lambda*v_etoile)*normal-((2*obj.getmasse()/(7*(masse+obj.getmasse())))*v_contact));
 			}else if (v_contact.norme()!=0){
-                    delta_v=lambda*v_etoile*(normal-frottement_choc*(!v_contact));
-                    }
-			//mise à jour des vitesses
+                 	   delta_v=lambda*v_etoile*(normal-frottement_choc*(!v_contact));
+                  	}
+			
+			//mise à jour des vitesses après choc
 			setvitesse(vitesse()+delta_v);
 			obj.setvitesse(obj.vitesse()-(masse/obj.getmasse())*delta_v);
              
-             //affichage
-             cout <<"calcul:"<<endl;
-             cout<<"n= "<<normal<<endl;
-             cout<<"lambda :"<<	lambda<<endl;
-             cout<<"Fn1"<<Fn1<<endl;
-             cout<<"Fn2"<<Fn2<<endl;
-             cout <<"vstar= "<<v_etoile<<endl;
-             cout <<"vc= "<<v_contact<<endl;
-             cout <<"7 mu (1+alpha) vstar "<< condition<<endl;
-             cout <<"2*vc.norme()"<<2*v_contact.norme()<<endl;
-             cout <<"dv: "<<delta_v<<endl;
+        	     //affichage
+             	cout <<"calcul:"<<endl;
+             	cout<<"n= "<<normal<<endl;
+             	cout<<"lambda :"<<	lambda<<endl;
+             	cout<<"Fn1"<<Fn1<<endl;
+             	cout<<"Fn2"<<Fn2<<endl;
+           	cout <<"vstar= "<<v_etoile<<endl;
+             	cout <<"vc= "<<v_contact<<endl;
+             	cout <<"7 mu (1+alpha) vstar "<< condition<<endl;
+             	cout <<"2*vc.norme()"<<2*v_contact.norme()<<endl;
+             	cout <<"dv: "<<delta_v<<endl;
+             	cout<<endl;
              
-             cout<<endl;
-             cout <<"apres choc : :"<<endl;
-             cout<<"vitesse objet1= "<<Pd <<endl;
-             cout << "vitesse objet2= "<< obj.getPd() <<endl;
-             cout <<"force objet1 "<< force<<endl;
-             cout<<"force objet2 "<<obj.getforce()<<endl;
-	}
+		cout <<"apres choc : :"<<endl;
+             	cout<<"vitesse objet1= "<<Pd <<endl;
+             	cout << "vitesse objet2= "<< obj.getPd() <<endl;
+             	cout <<"force objet1 "<< force<<endl;
+             	cout<<"force objet2 "<<obj.getforce()<<endl;
+		}
 }                           
 
 	
@@ -117,31 +122,32 @@ void ObjetMobile::agit_sur(ObjetMobile& obj){
     Vecteur Balle::getvitesse() const {return Pd;}
     void Balle::setvitesse (Vecteur const& a) { Pd = a;}
     
-    Vecteur Balle::evolution() const {
-			Vecteur Pdd; //derivée seconde de la position 
+    Vecteur Balle::evolution() const {		//retourne l acceleration
+			Vecteur Pdd;
 			Pdd=(1/masse)*force;
 			return Pdd;
-	}
+    }
 	
-	Vecteur Balle::point_plus_proche(const ObjetMobile& M){
-		Vecteur point_proche(M.position()-P);
+    Vecteur Balle::point_plus_proche(const ObjetMobile& M){
+		Vecteur point_proche(M.position()-P);	//determine distance entre deux objets (desolees pour le nom ambigu)
 		return point_proche;
-	}
+    }
 	
 	
 ///void Balle::dessine_sur(SupportADessin& support) { support.dessine(*this); }
 
 
 
-Balle* Balle::copie() const { //pour pouvoir utiliser la methode copieobjet
-        return (new Balle(*this));}
+    Balle* Balle::copie() const {		 //pour pouvoir faire une copie profonde polymorphique
+        return (new Balle(*this));
+    }
 
 
 
 	
 	
 // Les operateurs d affichage
-void Balle::affiche() const{
+void Balle::affiche() const {
     cout << "La balle est constituée de :" << endl;
     cout << position();
     cout << "  #position"<<endl;
@@ -164,68 +170,64 @@ void Balle::affiche() const{
 std::ostream& operator<<(std::ostream& sortie, Balle const& b){
 	b.affiche();
 	return sortie;
-	}
+}
 
 //____________________________________________________________
 //Pendule
 
 //Methodes
-Vecteur Pendule::getP() const{return P;}
-Vecteur Pendule::getorigine()const {return origine;}
+Vecteur Pendule::getP() const {return P;}		//retourne l angle theta
+Vecteur Pendule::getorigine() const {return origine;}
 double Pendule::getlongueur() const {return longueur;}
 
 Vecteur Pendule::Madirection() const {
     Vecteur dir (position()-origine);
-    return (!dir);
+    return (!dir);				//On ne veut que le vecteur unitaire de la direction de l axe du pendule
 }
     
-Vecteur Pendule::position() const { //direction de l'axe
+Vecteur Pendule::position() const { 	//retourne la direction au bout du pendule en x,y,z
 	Vecteur Y (0,1,0);
-	Vecteur y (-cos(P.getcomposante(0)) * Y);
-	Vecteur xplan (sin(P.getcomposante(0)) * (!d));
-    Vecteur laposition (longueur*(xplan+y));
-    laposition += origine;
-    return laposition;
+	Vecteur y (-cos(P.getcomposante(0)) * Y);		//On fait le projete de la position en y
+	Vecteur xplan (sin(P.getcomposante(0)) * (!d));		////On fait le projete de la position sur l'axe xplan (!!l axe du plan propre au pendule, pas le X general)
+    	Vecteur laposition (longueur*(xplan+y));
+  	laposition += origine;
+ 	return laposition;
     }
-//Vitesse du bout du pendule
-Vecteur Pendule::vitesse() const {
+
+
+Vecteur Pendule::vitesse() const {	//Vitesse du bout du pendule. De la meme facon que pour la position
 	Vecteur Y (0,1,0);
-	Vecteur vx ( (longueur* cos(P.norme()) * Pd.norme()) * (!d));
+	Vecteur vxplan ( (longueur* cos(P.norme()) * Pd.norme()) * (!d));
 	Vecteur vy (longueur*sin(P.norme())*Pd.norme()*Y);
-	Vecteur v (vx + vy);
+	Vecteur v (vxplan + vy);
 	return v;
 }
-void Pendule::setvitesse(Vecteur const& vit) {
+void Pendule::setvitesse(Vecteur const& vit) {		//A partir de la vitesse au bout du pendule donnee en coordonnees cartesiennes on modifie le theta point (Pd)
 	Vecteur thetapoint (vit.norme()/longueur);
 	Pd = thetapoint;
 }
 	
 	
 
-Vecteur Pendule::point_plus_proche(const ObjetMobile& M){
+Vecteur Pendule::point_plus_proche(const ObjetMobile& M){	//toujours distance entre deux objets
 		Vecteur point_proche(M.position()-position());
 		return point_proche;
 	}
 
 
-Vecteur Pendule::evolution() const {
+Vecteur Pendule::evolution() const {				//Voir les equations du pendule dans le complement mathematique
 	double sin_P (sin (P.getcomposante(0)));
 	double cos_P (cos (P.getcomposante(0)));
-	cout <<"sin_P " <<sin_P <<"  cos_P "<<cos_P<<endl;
 	//On definit le plan dans lequel est restreint le pendule: la verticale et d
 	Vecteur bas(0.0,-1.0,0.0);
-	
 	double inv_ml (1/(masse*longueur));
 	double acc ( (cos_P * (force|d)) - (sin_P * (force|bas)) - ((frottement/longueur)*Pd.getcomposante(0)) );
-	cout << "acceleration " << acc << endl;
-
 	Vecteur Pdd (acc*inv_ml);
-	cout <<" evolution "<<Pdd << endl; 
 	return  Pdd; } 
 
 /// void Pendule::dessine_sur(SupportADessin& support){ support.dessine(*this); }
 
-Pendule* Pendule::copie() const { //pour pouvoir utiliser la methode copieobjet
+Pendule* Pendule::copie() const { 	//pour pouvoir faire la copie polymorphique
         return (new Pendule(*this));
         }
 
@@ -249,6 +251,8 @@ void Pendule::affiche() const{
     cout << "   #theta point du pendule" <<endl;
     cout << force;
     cout <<"  #force appliquée sur le pendule" <<endl;
+    cout << evolution();
+    cout <<"  #accélération theta point point" << endl;
     cout << frottement;
     cout << "  #frottement du pendule" << endl;
     cout << endl;
