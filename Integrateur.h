@@ -4,20 +4,18 @@
 #include "ObjetMobile.h"
 #include "constantes.h"
 
-/// Deux choix: le premier est le plus logique mais le plus vide et inutile
-///dans le sens où si c est juste pour une methode ca sert a rien d en faire une classe
-///Le deuxieme place les integrateurs comme sous classe des objets mobiles ce qui n a aucun sens
-///mais est plus esthetique et permet une vraie construction de classe avec attributs
+//Ce fichier introduit les differents intégrateurs qu'on peut utiliser
 
 
 class Integrateur {
 // Represente un integrateur quelconque
 	public:
 	// Constructeur
-	Integrateur (double t_ = 0.01)
+	Integrateur (double t_ = 0.01)	//On met une valeur par défaut arbitraire assez petite au pas de temps dt
 	 : dt(t_) {}
 	
-	
+	//Cette methode correspond aux calculs effectues sur la position et la vitesse de l ObjetMobile pris en argument pour le faire evoluer selon dt
+	//elle est virtuelle car chaque integrateur a ses propres calculs plus ou moins precis
 	virtual void integre(ObjetMobile& M);
 	
 	protected:
@@ -29,7 +27,7 @@ class Integrateur {
 
 
 
-class IntegrateurEulerCromer : public Integrateur {
+class IntegrateurEulerCromer : public Integrateur {	//IntegrateurEulerCromer est une sous classe d'Integrateur
 		public:
 
 	IntegrateurEulerCromer (double t =0.01)
@@ -43,32 +41,10 @@ class IntegrateurEulerCromer : public Integrateur {
 };
 
 
-class IntegrateurNewmark : public Integrateur {
+class IntegrateurNewmark : public Integrateur {	//IntegrateurNewmark est une sous classe d'Integrateur
 	public:
 	IntegrateurNewmark (double t =0.01)
 	: Integrateur (t) {}
 	virtual void integre(ObjetMobile& M) override;
 	
 	};
-/*
-class Integrateur : public ObjetMobile {
-// Represente un integrateur quelconque
-	public:
-	
-	// Constructeur
-	Integrateur (Vecteur param, Vecteur derparam, double t_, Vecteur F, double r, double rho, int deg_, double delta_t = 1)
-	: ObjetMobile(param, derparam, t_, F, r, rho, deg_), dt (delta_t) {}
-	
-	protected:
-	
-	virtual void integre(){
-		P =  ( P + (dt*Pd) );
-		Pd = ( Pd + (dt*evolution() ) ); 
-	}
-	
-	private:
-	double dt;	// laps de temps pour integrer
-
-};
-
-*/
