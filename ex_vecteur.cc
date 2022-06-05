@@ -11,23 +11,22 @@ using namespace std;
 
     size_t Vecteur::taille() const {return vecteur.size();}
     
-   void Vecteur::dimension(Vecteur autre){
+   void Vecteur::dimension(Vecteur autre){	//pour gerer le cas où les vecteurs sont de taille differente
 	if (taille()!=autre.taille()){
 	   size_t nv (taille());
-        size_t na (autre.taille());
-			cout << "Attention les vecteurs sont de tailles différentes!" << endl;
-            if (nv > na){
+      	   size_t na (autre.taille());
+	   cout << "Attention les vecteurs sont de tailles différentes!" << endl;
+           if (nv > na){
                 for (size_t i(na); i < nv; ++i){
                     autre.augmente(0.0);
                 }
-                
             }else{
                 for (size_t i(nv); i < na; ++i){
                     augmente(0.0);
                 }
             }
-		}
 	}
+}
 		
 
     
@@ -37,8 +36,7 @@ using namespace std;
 
 
 
-    void Vecteur::augmente(double aug){
-        //ajoute une dimention au vecteur et donne ca valeur
+    void Vecteur::augmente(double aug){         //ajoute une dimention au vecteur en y ajoutant la valeur passee en argument
         vecteur.push_back(aug);
     }
    
@@ -142,8 +140,11 @@ bool Vecteur::operator==(const Vecteur& v) const {
                valeur=(*this).getcomposante(0)*autre.getcomposante(0);
                set_coord(0,valeur);
         
-	} else { cout << "la multiplicaiton ne s'est pas faite ,: il faudrait mieux utilisé le produit scalaire ou vectorielle car les vecteurs sont de taile superieur a un" << endl;}
-     return (*this);}
+	} else {
+		cout << "la multiplication ne s'est pas faite , il faudrait mieux utiliser le produit scalaire ou vectoriel car les vecteurs sont de taille superieure a 1" << endl;
+	}
+     return (*this);
+    }
              
     Vecteur Vecteur::operator*(const Vecteur& autre) const {
 		Vecteur nv (*this);
@@ -156,13 +157,13 @@ bool Vecteur::operator==(const Vecteur& v) const {
          for (size_t i(0); i < V.taille() ; ++ i ){
              valeur=V.getcomposante(i)*lambda;
              nv.augmente(valeur);
-            }
-         return nv;
          }
+        return nv;
+    }
 
-	Vecteur Vecteur::operator*(const double lambda) const {
-		return (lambda*(*this));
-	}
+Vecteur Vecteur::operator*(const double lambda) const {
+	return (lambda*(*this));
+}
 
 //___________________________________________________________________________________________---
 
@@ -170,21 +171,20 @@ bool Vecteur::operator==(const Vecteur& v) const {
     double Vecteur::operator|(const Vecteur&  autre) const { //produit scalaire
         double a (0);
         if (taille() == autre.taille()){
-        for (size_t i(0); i < vecteur.size(); ++i){
-            a += vecteur[i]*autre.vecteur[i];
-            }
+       		for (size_t i(0); i < vecteur.size(); ++i){
+            		a += vecteur[i]*autre.vecteur[i];
+            	}
         }else {
             cout <<"Les dimensions ne sont pas semblables, erreur pour le produit scalaire"<<endl;
-
         }
     return a;
-        }
+   }
 
 
 //____________________________________________________________________________________________
 
   
-    Vecteur Vecteur::operator^(const Vecteur&  autre) const {
+    Vecteur Vecteur::operator^(const Vecteur&  autre) const {	//produit vectoriel, uniquement pour les vecteurs de dimension 3
         Vecteur prod({0.0,0.0,0.0});
         if ((taille()!=3) or (autre.taille()!=3)){
             cout << "Les dimensions ne sont pas appropriées, erreur pour le produit vectoriel"<<endl;
