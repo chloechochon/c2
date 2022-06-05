@@ -11,12 +11,12 @@
 using namespace std;
 
 
-// Ce document sert a definir les methodes propres a tous les objets mobiles de facon generale ainsi que ChampForce
+// Ce document sert a definir les methodes propres a tous les objets mobiles de facon generale
 
 
 //ObjetMobile
 //Methodes
- double ObjetMobile::masse_vol() const {return (masse/(((4*M_PI)/3)*carre(rayon)*rayon)); }
+ double ObjetMobile::masse_vol() const {return (masse/(((4*M_PI)/3)*carre(rayon)*rayon)); }	//calcul de la masse volumique
     
  void ObjetMobile::ajoute_force(Vecteur  df){    //const&
         force+=df;}
@@ -26,9 +26,8 @@ double ObjetMobile::getrayon() const {return rayon;}
 Vecteur ObjetMobile::getPd() const{return Pd;}
 Vecteur ObjetMobile::getP() const {return P;};
 Vecteur ObjetMobile::getforce() const{return force;}
-double ObjetMobile::get_temps() const {return temps;}
-double ObjetMobile::getalpha() const {return alpha;}
-double ObjetMobile::getfrottement_choc() const {return frottement_choc;}
+double ObjetMobile::getalpha() const {return alpha;}				//utile pour agit_sur() des Obstacles
+double ObjetMobile::getfrottement_choc() const {return frottement_choc;}	//utile pour agit_sur() des Obstacles
 
 
 void ObjetMobile::setP (Vecteur nouv_pos){ P=nouv_pos; }
@@ -40,16 +39,16 @@ void ObjetMobile::setdanschamp(size_t i, bool a){ danschamp[i] = a;}
 
 
 void ObjetMobile::ajoute_a(Systeme& S){
-	S.ajoute(this);
+	S.ajoute(this);				//Pour ajouter l objet au systeme de facon polymorphique (le mettre dans le bon tableau en attribut du systeme
 	cout << "un objet mobile est ajouté au systeme"<<endl;
 	 }  
 
 void ObjetMobile::agit_sur(ObjetMobile& obj){  
 		//soit l'objet 2 celui passé en parametre
-		//verification qu'il y ai bien un choc 
-		if (((position()-obj.position()).norme()) - (rayon+obj.getrayon()) < epsilon) {
-			//mise à jour les forces s’exerçant sur les objets
-            Vecteur normal(!(position()-obj.position()));//vecteur (unitaire) normal au point de choc
+	
+		
+		if (((position()-obj.position()).norme()) - (rayon+obj.getrayon()) < epsilon) { //verification qu'il y ait bien un choc 
+            		Vecteur normal(!(position()-obj.position()));			//vecteur (unitaire) normal au point de choc
 			
 			double Fn1 (force|normal);
 			Vecteur a(obj.getforce());
@@ -57,7 +56,7 @@ void ObjetMobile::agit_sur(ObjetMobile& obj){
 
 			if (Fn1 < epsilon) {
 				force-=(Fn1*normal); 
-                obj.setforce(obj.getforce()+(Fn1*normal));
+                		obj.setforce(obj.getforce()+(Fn1*normal));
 			}
 			
 			if (Fn2 > epsilon) {
@@ -173,7 +172,6 @@ std::ostream& operator<<(std::ostream& sortie, Balle const& b){
 //Methodes
 Vecteur Pendule::getP() const{return P;}
 Vecteur Pendule::getorigine()const {return origine;}
-double Pendule::getfrottement() const {return frottement;}
 double Pendule::getlongueur() const {return longueur;}
 
 Vecteur Pendule::Madirection() const {
