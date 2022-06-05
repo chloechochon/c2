@@ -4,7 +4,7 @@ CC  = $(CXX)
 CXXFLAGS = -std=c++11
 
 
-all: testVecteur testBalle testPendule testObstacle testChocs testIntegrateur1 testIntegrateur2  testIntegrateurN  exerciceP9a testChocsballeballe testChocs2pendules testChocsballeplan testChocsbriquependules
+all: testVecteur testBalle testPendule testObstacle testChocs testIntegrateur1 testIntegrateur2  testIntegrateurN  exerciceP9a testChocsballeballe testChocs2pendules testChocsballeplan testChocsbriquependules main_text
 
 
 constantes.o: constantes.h constantes.cc
@@ -15,7 +15,7 @@ testVecteur.o: testVecteur.cc ex_vecteur.h
 testVecteur: testVecteur.o ex_vecteur.o
 
 
-ObjetMobile.o: ObjetMobile.cc ObjetMobile.h ex_vecteur.cc ex_vecteur.h constantes.h Dessinable.cc Dessinable.h SupportADessin.h Systeme.h
+ObjetMobile.o: ObjetMobile.cc ObjetMobile.h ex_vecteur.cc ex_vecteur.h constantes.h Dessinable.h SupportADessin.h Systeme.h
 
 ChampsForces.o: ChampsForces.cc ChampsForces.h ObjetMobile.h ex_vecteur.h
 
@@ -43,7 +43,7 @@ testIntegrateur2: testIntegrateur2.o Integrateur.o ex_vecteur.o ObjetMobile.o co
 testIntegrateurN.o: Integrateur.h ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o Systeme.o 
 testIntegrateurN: testIntegrateurN.o Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o Systeme.o 
 
-Dessinable.o: Dessinable.h Dessinable.cc ex_vecteur.o SupportADessin.h
+Dessinable.o: Dessinable.h ex_vecteur.o SupportADessin.h
 
 Objetcompose.o: Objetcompose.cc Objetcompose.h ex_vecteur.o ChampsForces.cc ChampsForces.h obstacle.o ObjetMobile.o Dessinable.o
 
@@ -67,6 +67,15 @@ testChocsballeplan :testChocsballeplan.o ObjetMobile.o obstacle.o constantes.o e
 
 testChocsbriquependules.o :testChocsbriquependules.cc ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o obstacle.o
 testChocsbriquependules :testChocsbriquependules.o ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o obstacle.o
+
+SupportADessin.o: SupportADessin.h
+
+text_viewer.o: text_viewer.h text_viewer.cc obstacle.o ObjetMobile.o Objetcompose.o SupportADessin.o ChampsForces.o Objetcompose.o
+
+main_text.o: text_viewer.o obstacle.o ObjetMobile.o ex_vecteur.o constantes.o Systeme.o Integrateur.o
+main_text: main_text.o text_viewer.o obstacle.o ObjetMobile.o ex_vecteur.o constantes.o Systeme.o Integrateur.o
+
+
 clean:
 	rm *.o
 	rm *.gch

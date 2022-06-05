@@ -13,7 +13,7 @@
 
 using namespace std;
 
-//void Systeme::dessine_sur(SupportADessin& support) { support.dessine(*this); }
+void Systeme::dessine_sur(SupportADessin& support) { support.dessine(*this); }
 
 void Systeme::affiche() const {
     cout << "Le système est composé de : " <<endl;
@@ -76,7 +76,7 @@ ostream& operator<<(ostream& sortie,const Systeme& Sys){
 }
 
 
-void Systeme::evolue2( double dt, bool integrateur) {
+void Systeme::evolue2(double dt, int integrateur) {
 cout <<"a evolue" << endl; 
 
     //ajoutons les forces externes que subissent les objet mobiles (les champs de forces)
@@ -121,10 +121,12 @@ void Systeme::ajoute(Obstacle* obstacle){
 }
 
 void Systeme::ajoute(ChampForces* Champ){
-    tableau_champs.push_back(unique_ptr <ChampForces> (Champ->copie()));
+	int num (Champ->getnumero());
    for (size_t i(0); i < taille_tab_obj(); ++i){
-    retour_obj(i)->setdanschamp(Champ->getnumero(), false);
+    retour_obj(i)->setdanschamp(num, false);
 	}
+	tableau_champs.push_back(unique_ptr <ChampForces> (Champ->copie()));
+
 }
 
 

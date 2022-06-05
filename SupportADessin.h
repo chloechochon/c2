@@ -27,8 +27,6 @@ class SupportADessin {
   virtual void dessine (const Pendule&)=0;
   virtual void dessine (const Brique&)=0;
   virtual void dessine (const Plan&)=0;
-  virtual void dessine (const Ventilateur&)=0;
-  /* Mettre ici toutes les méthodes nécessaires pour dessiner tous les
-   * objets que l'on veut dessiner
-   */
+ // virtual void dessine (const Ventilateur&)=0;
+
 };

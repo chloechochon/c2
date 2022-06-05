@@ -109,7 +109,7 @@ Plan* Plan::copie() const {	 //pour pouvoir utiliser la methode copieobjet
 
 	 
 //Operateur d affichage
-void Plan::affiche(){
+void Plan::affiche() const{
 	cout << "Un plan est constitué de: " << endl;
 		
 		cout << obs_origine << "  #origine" << endl;
@@ -118,12 +118,12 @@ void Plan::affiche(){
 		cout << "  #normale" << endl;
 		cout << endl;
 }
-ostream& operator<<(ostream& sortie, Plan& P){
+ostream& operator<<(ostream& sortie, Plan const& P){
 	P.affiche();
 	return sortie;
 }
 
-//void Plan::dessine_sur(SupportADessin& support) { support.dessine(*this); }
+void Plan::dessine_sur(SupportADessin& support) { support.dessine(*this); }
 
     
 //______________________________________________________________________________________________________________________________________________
@@ -210,7 +210,7 @@ Brique* Brique::copie() const {
 
 
 //Operateur
-void Brique::affiche(){
+void Brique::affiche() const{
 	cout <<"Une brique constituée de: " << endl;
 		for (size_t i(0); i< getobs_origine().taille();i++){
 			cout << obs_origine.getcomposante(i) << "  ";}
@@ -229,10 +229,10 @@ void Brique::affiche(){
 }
 
 
-ostream& operator<<(ostream& sortie, Brique& B){
+ostream& operator<<(ostream& sortie, Brique const& B){
 	B.affiche();
 	return sortie;
 }
 
 
-///void Brique::dessine_sur(SupportADessin& support) { support.dessine(*this); }
+void Brique::dessine_sur(SupportADessin& support) { support.dessine(*this); }

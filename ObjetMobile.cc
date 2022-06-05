@@ -134,7 +134,7 @@ void ObjetMobile::agit_sur(ObjetMobile& obj){
     }
 	
 	
-///void Balle::dessine_sur(SupportADessin& support) { support.dessine(*this); }
+void Balle::dessine_sur(SupportADessin& support) { support.dessine(*this); }
 
 
 
@@ -225,7 +225,7 @@ Vecteur Pendule::evolution() const {				//Voir les equations du pendule dans le 
 	Vecteur Pdd (acc*inv_ml);
 	return  Pdd; } 
 
-/// void Pendule::dessine_sur(SupportADessin& support){ support.dessine(*this); }
+void Pendule::dessine_sur(SupportADessin& support){ support.dessine(*this); }
 
 Pendule* Pendule::copie() const { 	//pour pouvoir faire la copie polymorphique
         return (new Pendule(*this));

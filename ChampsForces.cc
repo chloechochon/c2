@@ -19,7 +19,7 @@ void ChampForces::ajoute_a(Systeme& S){
 	}
 	
 int ChampForces::compteur(0); 	//on initialise le compteur à 0
-int ChampForces::getnumero() const { return numero; }
+int Vent::getnumero() const { return numero; }
 
 
 	

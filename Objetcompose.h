@@ -43,7 +43,7 @@ class Objetcompose : public Dessinable {
 			}
 			
 		 
-		 };
+ };
 		 
 	
  
@@ -54,7 +54,7 @@ class Objetcompose : public Dessinable {
 	
 	//methodes 
 	void ajoute_a(Systeme& S);		
-	//virtual void dessine_sur (SupportADessin& ) = 0;
+    virtual void dessine_sur (SupportADessin& ) = 0;
 	
 	protected:
 	std::vector<ObjetMobile*> Obj;
@@ -69,7 +69,7 @@ class Ventilateur : public Objetcompose  {
 	public:
 	Ventilateur (Brique bri, Vent v) : Objetcompose(bri,v) {}	//On force la construction du Ventilateur à avoir uniquement une brique et un vent
 
-	// virtual void dessine_sur(SupportADessin& support) override;
+    virtual void dessine_sur(SupportADessin& support) override;
 	Obstacle* getbrique() const;
 	ChampForces* getvent() const;
 		

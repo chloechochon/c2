@@ -55,7 +55,7 @@ class ObjetMobile: public Dessinable {	//tout ObjetMobile est dessinable (mais l
         virtual void setvitesse(Vecteur const& a) = 0 ;
         virtual Vecteur evolution() const = 0;	//renvoie l acceleration selon les forces appliquees sur l objet et les differentes contraintes exercees dessus
         void agit_sur(ObjetMobile& obj);	//pour gerer les changemets de position et de vitesse lorsqu il y a choc
-//      virtual void dessine_sur(SupportADessin&) =0;
+        virtual void dessine_sur(SupportADessin&) =0;
         virtual Vecteur point_plus_proche (const ObjetMobile& obj) = 0; //calcule la distance entre deux objetsMobiles
 
         double masse_vol() const;	//calcule la masse volumique de l objet en fonction de la masse et du rayon
@@ -112,7 +112,7 @@ class Balle : public ObjetMobile {	//une balle n a pas d attributs propres et ne
 	
     virtual void affiche() const override;
 
-    ///virtual void dessine_sur(SupportADessin& support) override;
+    virtual void dessine_sur(SupportADessin& support) override;
     
     //methode pour la covariance
     virtual Balle* copie() const override;
@@ -163,7 +163,7 @@ class Pendule : public ObjetMobile {
     virtual Vecteur evolution() const override;	//Evolution retourne l acceleration du pendule selon les formules d oscillations
 	
     virtual Vecteur point_plus_proche(const ObjetMobile& M) override;
-    ///virtual void dessine_sur(SupportADessin& support) override;
+    virtual void dessine_sur(SupportADessin& support) override;
     virtual void affiche() const override;
 
     //pour la covariance

@@ -1,6 +1,13 @@
 #include <iostream>
 #include "text_viewer.h"
 #include "Systeme.h"
+#include "ObjetMobile.h"
+#include "obstacle.h"
+#include "Integrateur.h"
+#include "Systeme.h"
+#include "ex_vecteur.h"
+#include "constantes.h"
+
 using namespace std;
 
 
@@ -51,7 +58,7 @@ int main()
       for (size_t i(0); i <n; i++){
       cout <<" evolution ... "<<endl;
       cout << endl;
-      le_systeme.evolue2(dt);
+      le_systeme.evolue2(dt, 1);
       le_systeme.dessine_sur(ecran);
 
 }

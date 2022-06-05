@@ -27,7 +27,7 @@ int main (){
     */
     IntegrateurNewmark I (0.01);
     for (size_t i(0); i < n; ++i) {
-    cout << " t = " << (b.get_temps() + i*0.01) << " :"<< endl;
+	cout << "Au temps " << i*0.01 << " : " <<endl;
     I.integre (b);
     b.affiche();
     }

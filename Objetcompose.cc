@@ -2,6 +2,7 @@
 #include "ex_vecteur.h"
 #include "ObjetMobile.h"
 #include "ChampsForces.h"
+#include "SupportADessin.h"
 #include "Objetcompose.h"
 #include "Systeme.h"
 #include <memory>
@@ -52,9 +53,9 @@ Obstacle* Ventilateur::getbrique() const {
 
 ChampForces* Ventilateur::getvent() const {return champsf[0];}	//il n y a qu une composante de ChampForce (un vent) pour un ventilateur
 
-//void Ventilateur::dessine_sur(SupportADessin& support) { support.SupportADessin::dessine(*this); }
-
-std::ostream& operator<<(std::ostream& sortie, Ventilateur const& ventilateur){
+//void Ventilateur::dessine_sur(SupportADessin& support) { support.dessine(*this); }
+void Ventilateur::dessine_sur (SupportADessin& support) { cout << "désolées, petit beug de dernière seconde, on supprime cette fonction pour Ventilateur... bon courage pour la suite! :)" << endl;}
+ostream& operator<<(ostream& sortie, Ventilateur const& ventilateur){
 	cout <<"voici un ventilateur" <<endl;
 	(ventilateur.getvent())->affiche();
 	cout << endl;

@@ -25,9 +25,9 @@ class Obstacle : public Dessinable {
     virtual Vecteur point_plus_proche(const ObjetMobile& M) = 0;	//pour determiner quel est le point appartenant a l obstacle duquel l objet mobile est le plus proche
     virtual double distance(const ObjetMobile&) =0;		//determiner la distance entre l objet et l obstacle
     void agit_sur(ObjetMobile& obj);				//pour gerer les chocs
-    virtual void affiche() =0;
+    virtual void affiche() const =0;
 
-    ///virtual void dessine_sur(SupportADessin& support) = 0;
+    virtual void dessine_sur(SupportADessin& support) = 0;
 	
     //pour la covariance
     virtual Obstacle* copie() const = 0;
@@ -50,11 +50,11 @@ class Plan :public Obstacle {
     
     Vecteur point_plus_proche(const ObjetMobile& M);
     Vecteur n() const;			//pour determiner le vecteur normal au plan
-    virtual void affiche() override;
+    virtual void affiche() const override;
     virtual double distance(const ObjetMobile&) override; //distance de l'ObjetMobile par rapport au plan
 
 
-    ///virtual void dessine_sur(SupportADessin& support) override;
+    virtual void dessine_sur(SupportADessin& support) override;
     
     //pour la covariance
     virtual Plan* copie() const override;
@@ -65,7 +65,7 @@ class Plan :public Obstacle {
     
 };
 
-ostream& operator<<(ostream& sortie, Plan& P);
+std::ostream& operator<<(std::ostream& sortie, Plan const& P);
 
 class Brique : public Obstacle {
 	public:
@@ -85,11 +85,11 @@ class Brique : public Obstacle {
    
     Vecteur point_plus_proche(const ObjetMobile& M) override;	//point appartenant a la brique dont l objet est le plus proche
     Vecteur n() const;
-    virtual void affiche() override;
+    virtual void affiche() const override;
     virtual double distance(const ObjetMobile&) override;	//distance de l'ObjetMobile par rapport à une brique
 
 
-///	virtual void dessine_sur(SupportADessin& support) override;
+    virtual void dessine_sur(SupportADessin& support) override;
 
 	//pour la covariance
     virtual Brique* copie() const override;
@@ -103,7 +103,7 @@ class Brique : public Obstacle {
     double hauteur;	//hauteur a pour direction le vecteur normal n obtenu par la methode n()
 };
 
-ostream& operator<<(ostream& sortie, Brique& B);
+std::ostream& operator<<(std::ostream& sortie, Brique const& B);
 
 Vecteur point_portion (ObjetMobile const& M, Vecteur dir1, Vecteur dir2, Vecteur point); 
 // permet d utiliser la fonction point_plus_proche de plan dans la methode de Brique,

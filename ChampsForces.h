@@ -37,7 +37,7 @@ class ChampForces {
     virtual void agit_sur(ObjetMobile& obj) const =0; //On ne va pas créer d'instance de ChampForces, c'est une classe abstraite. En efet excepte la pesanteur et le force d'Archimede il n'y a pas de champ qui s'applique de facon délocalisée générale
     Vecteur getintensite() const; 	//retourne l intensite du ChampForce
     virtual ChampForces* copie() const =0; //utile pour pouvoir faire des copies profondes polymorphiques
-    int getnumero() const;	//retourne le numero propre au ChampForce
+    virtual int getnumero() const =0;	//retourne le numero propre au ChampForce
     virtual void affiche() const =0;
 
     protected:
@@ -45,7 +45,7 @@ class ChampForces {
     Vecteur intensite;
 	
 	//On crée un attribut de classe nommé compteur.
-    	//le compteur permet de donner un numéro à chaque instance ChampForce créée pour se retrouver dans la map de danschamp et déterminer quel champ influence ou non l'objet
+    //le compteur permet de donner un numéro à chaque instance ChampForce créée pour se retrouver dans la map de danschamp et déterminer quel champ influence ou non l'objet
    	static int compteur;
 	int numero;
 };
@@ -81,6 +81,7 @@ class Vent : public ChampForces {
 	virtual void agit_sur(ObjetMobile& obj) const override; //si il y a besoin on rajoute l'intensite du vent aux forces de l'objet (on a par exemple pas besoin de rajouter deux fois un vent si l'objet s'est juste deplace dans le vent) 
 	bool influe (ObjetMobile const& obj) const; //pour verifier si l'objet est dans le champ
 	virtual void affiche() const override; 
+	virtual int getnumero() const override;
 
 	private:
 	Vecteur origine;
