@@ -1,5 +1,6 @@
 #pragma once
 
+//Pour casser la dependance cyclique on fait un prototypage des differentes classes utilisees plutot que faire un lien avec les fichiers sources
 class Systeme;
 class Balle;
 class Pendule;
