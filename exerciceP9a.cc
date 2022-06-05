@@ -14,11 +14,10 @@ int main (){
     Systeme le_systeme;
 	
     //On a construit la balle (en 2D selon les instructions de l'exercice de P7)
-    Vecteur pos (0, 0);
-    Vecteur vit (1.5, 2.0);
+    Vecteur pos (0, 0,0);
+    Vecteur vit (1.5, 2.0,0.0);
     double masse (0.127);
-    Vecteur f (0, -9.81);
-    Balle b (pos,vit,masse,f);
+    Balle b (pos,vit,masse,vecnull);
 
     // on va utiliser la copie polymorphique avec des unique ptr
     le_systeme.ajoute(new Balle (b));
@@ -40,23 +39,28 @@ int main (){
         cin >> n;
     } while ( n <=0);
     
-    unsigned int dt;
+    double dt;
     cout << "quel est le dt ?" <<endl;
     cin >> dt;
+    cout << endl;
     
     
-	cout<< "le systeme avant l'evolution : " << endl;
+	cout<< "avant l'evolution : " << endl;
 	le_systeme.affiche();
 	cout<< endl;
 	
-	cout <<" evolution"<<endl;
-    Systeme evolue2(double dt);
-   	cout<< endl;
+	cout << endl;
+		
+		for (size_t i(0); i <n; i++){
+		cout <<" evolution ... "<<endl;
+		cout << endl;
+		le_systeme.evolue2(dt);
+		
+}
 
-   	cout<< "le systeme apres l'evolution : " << endl;
-    le_systeme.affiche();
+
+   	
     cout<< endl;
-
     
     
 

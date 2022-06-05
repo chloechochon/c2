@@ -51,7 +51,6 @@ void Systeme::affiche() const {
         cout << "Aucun obstacle." << endl;
     }       
             
-  cout << endl;
     
   n = tableau_champs.size();
     if (n != 0){
@@ -65,7 +64,7 @@ void Systeme::affiche() const {
         cout<<endl;
         }
     }else{
-        cout << "Aucun champ de force." << endl;
+        cout << "Seule la gravité et la force d'Archimede agissent" << endl;
     }
     cout << endl;
 }
@@ -78,7 +77,7 @@ ostream& operator<<(ostream& sortie,const Systeme& Sys){
 
 
 void Systeme::evolue2( double dt) {
-
+cout <<"a evolue" << endl; 
 
     //ajoutons les forces externes que subissent les objet mobiles (les champs de forces)
     for(size_t i(0); i<tableau_champs.size(); i++){
@@ -96,8 +95,11 @@ void Systeme::evolue2( double dt) {
 
     //et enfin integre l'objet qui "deplace" les objets
     for(size_t k(0); k<tableau_objets.size(); k++){
-        Integrateur inte(dt);
-        inte.integre(*tableau_objets[k]);
+        IntegrateurEulerCromer inte(dt);
+        cout << "a ete integre" <<endl;
+        inte.integre(*tableau_objets[k]); 
+        (*tableau_objets[k]).affiche();
+
     }
 }
 

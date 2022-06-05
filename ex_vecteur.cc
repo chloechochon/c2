@@ -12,7 +12,7 @@ using namespace std;
     size_t Vecteur::taille() const {return vecteur.size();}
     
    void Vecteur::dimension(Vecteur autre){
-
+	if (taille()!=autre.taille()){
 	   size_t nv (taille());
         size_t na (autre.taille());
 			cout << "Attention les vecteurs sont de tailles différentes!" << endl;
@@ -27,6 +27,7 @@ using namespace std;
                 }
             }
 		}
+	}
 		
 
     
@@ -227,7 +228,6 @@ bool Vecteur::operator==(const Vecteur& v) const {
        if (n > 0.000001){
 			Vecteur unitaire ((1/n)*nv);
 			if(unitaire.norme()-1<0.00000001){
-				cout << "c'est bon" << endl;
 			}else{ cout << "vecetur unitaire incorrect"<<endl;}
 			return unitaire;
 	}else{

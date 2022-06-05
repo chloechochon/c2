@@ -27,8 +27,8 @@ class Vecteur {
     // On surcharge les constructeurs afin de pouvoir initialiser des vecteurs qui pourront avoir différentes dimensions:  une, deux ou trois dimensions (un vecteur de deux dimentions est un vecteur de 3 dimention avec un 0 dans la dernier composante 
     Vecteur () {}
 	Vecteur (double x) {vecteur.push_back(x);}
-	//Vecteur (double x, double y) { vecteur.push_back(x); vecteur.push_back(y);}
-    Vecteur (double x, double y, double z=0) {vecteur.push_back(x); vecteur.push_back(y); vecteur.push_back(z);}
+	Vecteur (double x, double y) { vecteur.push_back(x); vecteur.push_back(y);}
+    Vecteur (double x, double y, double z) {vecteur.push_back(x); vecteur.push_back(y); vecteur.push_back(z);}
 
 
     //methode
