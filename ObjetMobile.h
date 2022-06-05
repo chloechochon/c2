@@ -146,7 +146,7 @@ class Pendule : public ObjetMobile {
     
     Pendule (Pendule const&) = default;
     
-    Vecteur Madirection () const;
+    Vecteur Madirection () const;	//Correspond à la direction de l axe du pendule, du point d origine au bout du pendule
 
     /* Le theta est la seule donnée de position necessaire pour le pendule, etant donne que la longueur et l'origine sont fixes.
     Il y a donc un seul degre de liberte. On utilise donc P de dimension 1 (degl = 1) pour decrire la position du pendule et Pd pour sa vitesse angulaire
@@ -160,7 +160,6 @@ class Pendule : public ObjetMobile {
     // methodes get, necessaires pour l operateur d affichage << et pour la fonction agir_sur
     Vecteur getP() const;
     Vecteur getorigine() const;
-    double getfrottement() const;
     double getlongueur() const ;
 	
     virtual Vecteur evolution() const override;	//Evolution retourne l acceleration du pendule selon les formules d oscillations
