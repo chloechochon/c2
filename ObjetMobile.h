@@ -154,8 +154,6 @@ class Pendule : public ObjetMobile {
     virtual Vecteur position() const override;	//on retourne la position x y z du bout du pendule en fonction de P
     virtual Vecteur vitesse() const override;	//ici en fonction de Pd
     virtual void setvitesse(Vecteur const& a) override;	//On modifie Pd selon une vitesse donnée en coordonnees cartesiennes de la vitesse au bout du pendule
-    Vecteur dir() const;
-
     
     // methodes get, necessaires pour l operateur d affichage << et pour la fonction agir_sur
     Vecteur getP() const;
