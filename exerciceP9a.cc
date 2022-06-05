@@ -44,6 +44,11 @@ int main (){
     cin >> dt;
     cout << endl;
     
+    int mon_integrateur;
+    do {
+		cout << " quel integrateur voulez vous utilisé (rentrer 1 pour integrateurNewmark, 2 pour IntegrateurEulerCromer)" << endl;
+		cin >> mon_integrateur;
+		} while ((mon_integrateur==1) or (mon_integrateur==2));
     
 	cout<< "avant l'evolution : " << endl;
 	le_systeme.affiche();
@@ -54,7 +59,7 @@ int main (){
 		for (size_t i(0); i <n; i++){
 		cout <<" evolution ... "<<endl;
 		cout << endl;
-		le_systeme.evolue2(dt);
+		le_systeme.evolue2(dt, mon_integrateur);
 		
 }
 

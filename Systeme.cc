@@ -76,7 +76,7 @@ ostream& operator<<(ostream& sortie,const Systeme& Sys){
 }
 
 
-void Systeme::evolue2( double dt) {
+void Systeme::evolue2( double dt, bool integrateur) {
 cout <<"a evolue" << endl; 
 
     //ajoutons les forces externes que subissent les objet mobiles (les champs de forces)
@@ -94,11 +94,21 @@ cout <<"a evolue" << endl;
     }
 
     //et enfin integre l'objet qui "deplace" les objets
-    for(size_t k(0); k<tableau_objets.size(); k++){
-        IntegrateurEulerCromer inte(dt);
-        cout << "a ete integre" <<endl;
+		for(size_t k(0); k<tableau_objets.size(); k++){ 
+	   if (integrateur==1) {
+
+		IntegrateurNewmark inte(dt);
         inte.integre(*tableau_objets[k]); 
         (*tableau_objets[k]).affiche();
+        
+		} else {
+			
+        IntegrateurEulerCromer inte(dt);
+        inte.integre(*tableau_objets[k]); 
+        (*tableau_objets[k]).affiche();
+	}
+
+    
 
     }
 }
